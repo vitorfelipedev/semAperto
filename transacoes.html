@@ -85,25 +85,25 @@
         <form id="form-transacao">
           <div class="form-group">
             <label for="descricao">Descrição</label>
-            <input type="text" id="descricao" required placeholder="Ex: Conta de Luz" />
+            <input type="text" name="description" id="descricao" required placeholder="Ex: Conta de Luz" />
           </div>
 
           <div class="form-group">
             <label for="valor">Valor (R$)</label>
-            <input type="number" id="valor" step="0.01" required placeholder="0,00" />
+            <input type="number" name="value" id="valor" step="0.01" required placeholder="0,00" />
           </div>
 
           <div class="form-group">
             <label>Tipo</label>
             <div class="type-toggle">
-              <input type="radio" name="tipo" id="tipo-entrada" value="entrada" checked />
+              <input type="radio" name="type" id="tipo-entrada" value="entrada" checked />
               <label for="tipo-entrada">
                 <svg class="icon" style="width:16px;height:16px">
                   <use href="/icons.svg#icon-arrow-up"></use>
                 </svg>
                 Entrada
               </label>
-              <input type="radio" name="tipo" id="tipo-saida" value="saida" />
+              <input type="radio" name="type" id="tipo-saida" value="saida" />
               <label for="tipo-saida">
                 <svg class="icon" style="width:16px;height:16px">
                   <use href="/icons.svg#icon-arrow-down"></use>
@@ -115,13 +115,13 @@
 
           <div class="form-group">
             <label for="categoria">Categoria</label>
-            <input type="text" id="categoria" required list="categorias-lista" placeholder="Ex: Moradia" />
+            <input type="text" name="category" id="categoria" required list="categorias-lista" placeholder="Ex: Moradia" />
             <datalist id="categorias-lista"></datalist>
           </div>
 
           <div class="form-group">
             <label for="data">Data</label>
-            <input type="date" id="data" required />
+            <input type="date" name="date" id="data" required />
           </div>
 
           <button type="submit" class="btn-primary btn-full">
