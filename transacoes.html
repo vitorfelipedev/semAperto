@@ -20,26 +20,34 @@
 <body>
   <nav class="navbar" id="navbar">
     <a href="/" class="navbar-brand">
-      <svg class="logo-icon"><use href="/icons.svg#icon-wallet"></use></svg>
+      <svg class="logo-icon">
+        <use href="/icons.svg#icon-wallet"></use>
+      </svg>
       <span>Sem Aperto</span>
     </a>
 
     <ul class="nav-links" id="nav-links">
       <li>
         <a href="/">
-          <svg class="nav-icon"><use href="/icons.svg#icon-dashboard"></use></svg>
+          <svg class="nav-icon">
+            <use href="/icons.svg#icon-dashboard"></use>
+          </svg>
           Dashboard
         </a>
       </li>
       <li>
         <a href="/transacoes.html" class="active">
-          <svg class="nav-icon"><use href="/icons.svg#icon-list"></use></svg>
+          <svg class="nav-icon">
+            <use href="/icons.svg#icon-list"></use>
+          </svg>
           Transações
         </a>
       </li>
       <li>
         <a href="/metas.html">
-          <svg class="nav-icon"><use href="/icons.svg#icon-target"></use></svg>
+          <svg class="nav-icon">
+            <use href="/icons.svg#icon-target"></use>
+          </svg>
           Metas & Relatórios
         </a>
       </li>
@@ -47,12 +55,20 @@
 
     <div class="navbar-actions">
       <button class="theme-toggle" id="theme-toggle" aria-label="Alternar tema">
-        <svg class="icon icon-sun"><use href="/icons.svg#icon-sun"></use></svg>
-        <svg class="icon icon-moon"><use href="/icons.svg#icon-moon"></use></svg>
+        <svg class="icon icon-sun">
+          <use href="/icons.svg#icon-sun"></use>
+        </svg>
+        <svg class="icon icon-moon">
+          <use href="/icons.svg#icon-moon"></use>
+        </svg>
       </button>
       <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu">
-        <svg class="icon icon-menu"><use href="/icons.svg#icon-menu"></use></svg>
-        <svg class="icon icon-close"><use href="/icons.svg#icon-close"></use></svg>
+        <svg class="icon icon-menu">
+          <use href="/icons.svg#icon-menu"></use>
+        </svg>
+        <svg class="icon icon-close">
+          <use href="/icons.svg#icon-close"></use>
+        </svg>
       </button>
     </div>
   </nav>
@@ -82,12 +98,16 @@
             <div class="type-toggle">
               <input type="radio" name="tipo" id="tipo-entrada" value="entrada" checked />
               <label for="tipo-entrada">
-                <svg class="icon" style="width:16px;height:16px"><use href="/icons.svg#icon-arrow-up"></use></svg>
+                <svg class="icon" style="width:16px;height:16px">
+                  <use href="/icons.svg#icon-arrow-up"></use>
+                </svg>
                 Entrada
               </label>
               <input type="radio" name="tipo" id="tipo-saida" value="saida" />
               <label for="tipo-saida">
-                <svg class="icon" style="width:16px;height:16px"><use href="/icons.svg#icon-arrow-down"></use></svg>
+                <svg class="icon" style="width:16px;height:16px">
+                  <use href="/icons.svg#icon-arrow-down"></use>
+                </svg>
                 Saída
               </label>
             </div>
@@ -105,7 +125,9 @@
           </div>
 
           <button type="submit" class="btn-primary btn-full">
-            <svg class="icon" style="width:18px;height:18px"><use href="/icons.svg#icon-plus"></use></svg>
+            <svg class="icon" style="width:18px;height:18px">
+              <use href="/icons.svg#icon-plus"></use>
+            </svg>
             Adicionar
           </button>
         </form>
@@ -118,7 +140,9 @@
             <option value="todas">Todas as categorias</option>
           </select>
           <div class="search-input">
-            <svg class="icon"><use href="/icons.svg#icon-search"></use></svg>
+            <svg class="icon">
+              <use href="/icons.svg#icon-search"></use>
+            </svg>
             <input type="text" id="filtro-busca" placeholder="Buscar transação..." />
           </div>
         </div>
@@ -138,7 +162,9 @@
         </table>
 
         <div class="empty-state" id="empty-transacoes" style="display: none;">
-          <svg class="icon"><use href="/icons.svg#icon-file-text"></use></svg>
+          <svg class="icon">
+            <use href="/icons.svg#icon-file-text"></use>
+          </svg>
           <h3>Sem transações</h3>
           <p>Nenhuma transação encontrada. Use o formulário ao lado para adicionar.</p>
         </div>
@@ -155,7 +181,9 @@
     <div class="modal-header">
       <h2>Confirmar exclusão</h2>
       <button class="btn-icon" id="modal-fechar" aria-label="Fechar">
-        <svg class="icon"><use href="/icons.svg#icon-close"></use></svg>
+        <svg class="icon">
+          <use href="/icons.svg#icon-close"></use>
+        </svg>
       </button>
     </div>
     <div class="modal-body">
