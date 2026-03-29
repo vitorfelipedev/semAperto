@@ -1,10 +1,9 @@
 import { getTransactions } from '../api/storage.js';
 import { formatDate, formatValue } from '../utils/formatter.js';
 
-export function initTransactionTable() {
+export function initTransactionTable(trasactions = getTransactions()) {
   const listElement = document.getElementById('tabela-transacoes');
   const emptyElement = document.getElementById('empty-transacoes');
-  const trasactions = getTransactions();
   listElement.innerHTML = '';
   if (trasactions.length === 0) {
     emptyElement.style.display = 'flex';
