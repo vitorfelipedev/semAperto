@@ -1,13 +1,130 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>gerenciador-financas</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sem Aperto — Gerencie suas receitas e despesas com gráficos, metas e controle total do seu orçamento." />
+  <title>Dashboard | Sem Aperto</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/styles/main.css" />
+  <script>
+    const theme = localStorage.getItem("theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  </script>
+</head>
+
+<body>
+  <nav class="navbar" id="navbar">
+    <a href="/" class="navbar-brand">
+      <svg class="logo-icon"><use href="/icons.svg#icon-wallet"></use></svg>
+      <span>Sem Aperto</span>
+    </a>
+
+    <ul class="nav-links" id="nav-links">
+      <li>
+        <a href="/" class="active">
+          <svg class="nav-icon"><use href="/icons.svg#icon-dashboard"></use></svg>
+          Dashboard
+        </a>
+      </li>
+      <li>
+        <a href="/transacoes.html">
+          <svg class="nav-icon"><use href="/icons.svg#icon-list"></use></svg>
+          Transações
+        </a>
+      </li>
+      <li>
+        <a href="/metas.html">
+          <svg class="nav-icon"><use href="/icons.svg#icon-target"></use></svg>
+          Metas & Relatórios
+        </a>
+      </li>
+    </ul>
+
+    <div class="navbar-actions">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Alternar tema">
+        <svg class="icon icon-sun"><use href="/icons.svg#icon-sun"></use></svg>
+        <svg class="icon icon-moon"><use href="/icons.svg#icon-moon"></use></svg>
+      </button>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu">
+        <svg class="icon icon-menu"><use href="/icons.svg#icon-menu"></use></svg>
+        <svg class="icon icon-close"><use href="/icons.svg#icon-close"></use></svg>
+      </button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="page-header animate-fade-in-up">
+      <h1>Visão Geral</h1>
+      <p>Acompanhe como está o seu bolso neste mês.</p>
+    </header>
+
+    <section class="summary-cards">
+      <div class="card income animate-fade-in-up stagger-1">
+        <div class="card-indicator"></div>
+        <div class="card-header">
+          <h3>Receitas</h3>
+          <div class="card-icon">
+            <svg class="icon"><use href="/icons.svg#icon-arrow-up"></use></svg>
+          </div>
+        </div>
+        <p class="card-value text-money" id="total-receitas">R$ 0,00</p>
+      </div>
+
+      <div class="card expense animate-fade-in-up stagger-2">
+        <div class="card-indicator"></div>
+        <div class="card-header">
+          <h3>Despesas</h3>
+          <div class="card-icon">
+            <svg class="icon"><use href="/icons.svg#icon-arrow-down"></use></svg>
+          </div>
+        </div>
+        <p class="card-value text-money" id="total-despesas">R$ 0,00</p>
+      </div>
+
+      <div class="card balance animate-fade-in-up stagger-3">
+        <div class="card-indicator"></div>
+        <div class="card-header">
+          <h3>Saldo Atual</h3>
+          <div class="card-icon">
+            <svg class="icon"><use href="/icons.svg#icon-balance"></use></svg>
+          </div>
+        </div>
+        <p class="card-value text-money" id="saldo-atual">R$ 0,00</p>
+      </div>
+    </section>
+
+    <section class="dashboard-content">
+      <div class="chart-container animate-fade-in-up stagger-4">
+        <h2>Gastos por Categoria</h2>
+        <div class="chart-wrapper">
+          <canvas id="grafico-categorias"></canvas>
+        </div>
+        <div class="chart-legend" id="chart-legend"></div>
+      </div>
+
+      <div class="recent-transactions animate-fade-in-up stagger-5">
+        <h2>Últimas Movimentações</h2>
+        <ul id="lista-recentes" class="transaction-list">
+          <li class="empty-state">
+            <svg class="icon"><use href="/icons.svg#icon-list"></use></svg>
+            <h3>Nenhuma movimentação</h3>
+            <p>Adicione sua primeira transação para começar a acompanhar.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Sem Aperto &copy; 2026</p>
+  </footer>
+
+  <script type="module" src="/src/pages/dashboard.js"></script>
+</body>
+
 </html>

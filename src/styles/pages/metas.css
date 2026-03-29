@@ -1,0 +1,209 @@
+.goals-section {
+  margin-bottom: var(--space-10);
+}
+
+.goals-section h2 {
+  margin-bottom: var(--space-6);
+}
+
+.goal-card {
+  background: var(--color-surface-elevated);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  transition:
+    background var(--transition-theme),
+    border-color var(--transition-theme);
+}
+
+.goal-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-5);
+}
+
+.goal-values {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.goal-current {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+.goal-target {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.goal-form {
+  background: var(--color-surface-elevated);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin-bottom: var(--space-6);
+  transition:
+    background var(--transition-theme),
+    border-color var(--transition-theme);
+}
+
+.goal-form h3 {
+  font-size: var(--font-size-base);
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+.goal-form-row {
+  display: flex;
+  gap: var(--space-4);
+  align-items: end;
+}
+
+.goal-form-row .form-group {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.reports-section h2 {
+  margin-bottom: var(--space-6);
+}
+
+.reports-section p {
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+}
+
+.reports-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+.report-card {
+  background: var(--color-surface-elevated);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  transition:
+    background var(--transition-theme),
+    border-color var(--transition-theme);
+}
+
+.report-card h3 {
+  font-size: var(--font-size-base);
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+.category-bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.category-bar-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.category-bar-label {
+  font-size: var(--font-size-sm);
+  min-width: 100px;
+  color: var(--color-text-muted);
+}
+
+.category-bar-track {
+  flex: 1;
+  height: 8px;
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.category-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-500);
+  transition: width 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.category-bar-value {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+  min-width: 80px;
+  text-align: right;
+  color: var(--color-text-muted);
+}
+
+.sync-section {
+  background: var(--color-surface-elevated);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  transition:
+    background var(--transition-theme),
+    border-color var(--transition-theme);
+}
+
+.sync-section h2 {
+  margin-bottom: var(--space-2);
+}
+
+.sync-section p {
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+}
+
+.sync-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-sm);
+}
+
+.sync-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-border);
+}
+
+.sync-dot.connected {
+  background: var(--color-income);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+}
+
+.sync-actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+@media (max-width: 768px) {
+  .reports-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .goal-form-row {
+    flex-direction: column;
+  }
+}

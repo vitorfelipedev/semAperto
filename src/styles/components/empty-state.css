@@ -1,0 +1,30 @@
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12) var(--space-6);
+  text-align: center;
+}
+
+.empty-state .icon {
+  width: 64px;
+  height: 64px;
+  color: var(--color-border);
+  margin-bottom: var(--space-6);
+}
+
+.empty-state h3 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  text-transform: none;
+  letter-spacing: normal;
+  margin-bottom: var(--space-2);
+}
+
+.empty-state p {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  max-width: 320px;
+}
