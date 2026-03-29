@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Gerencie todas as suas transações financeiras — adicione receitas e despesas, filtre por período e categoria." />
+  <title>Transações | Sem Aperto</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/styles/main.css" />
+  <script>
+    const theme = localStorage.getItem("theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  </script>
+</head>
+
+<body>
+  <nav class="navbar" id="navbar">
+    <a href="/" class="navbar-brand">
+      <svg class="logo-icon"><use href="/icons.svg#icon-wallet"></use></svg>
+      <span>Sem Aperto</span>
+    </a>
+
+    <ul class="nav-links" id="nav-links">
+      <li>
+        <a href="/">
+          <svg class="nav-icon"><use href="/icons.svg#icon-dashboard"></use></svg>
+          Dashboard
+        </a>
+      </li>
+      <li>
+        <a href="/transacoes.html" class="active">
+          <svg class="nav-icon"><use href="/icons.svg#icon-list"></use></svg>
+          Transações
+        </a>
+      </li>
+      <li>
+        <a href="/metas.html">
+          <svg class="nav-icon"><use href="/icons.svg#icon-target"></use></svg>
+          Metas & Relatórios
+        </a>
+      </li>
+    </ul>
+
+    <div class="navbar-actions">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Alternar tema">
+        <svg class="icon icon-sun"><use href="/icons.svg#icon-sun"></use></svg>
+        <svg class="icon icon-moon"><use href="/icons.svg#icon-moon"></use></svg>
+      </button>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu">
+        <svg class="icon icon-menu"><use href="/icons.svg#icon-menu"></use></svg>
+        <svg class="icon icon-close"><use href="/icons.svg#icon-close"></use></svg>
+      </button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="page-header animate-fade-in-up">
+      <h1>Gerenciar Transações</h1>
+      <p>Registre e acompanhe todas as suas movimentações.</p>
+    </header>
+
+    <div class="transactions-layout">
+      <aside class="form-section animate-fade-in-up stagger-1">
+        <h2>Nova Movimentação</h2>
+        <form id="form-transacao">
+          <div class="form-group">
+            <label for="descricao">Descrição</label>
+            <input type="text" id="descricao" required placeholder="Ex: Conta de Luz" />
+          </div>
+
+          <div class="form-group">
+            <label for="valor">Valor (R$)</label>
+            <input type="number" id="valor" step="0.01" required placeholder="0,00" />
+          </div>
+
+          <div class="form-group">
+            <label>Tipo</label>
+            <div class="type-toggle">
+              <input type="radio" name="tipo" id="tipo-entrada" value="entrada" checked />
+              <label for="tipo-entrada">
+                <svg class="icon" style="width:16px;height:16px"><use href="/icons.svg#icon-arrow-up"></use></svg>
+                Entrada
+              </label>
+              <input type="radio" name="tipo" id="tipo-saida" value="saida" />
+              <label for="tipo-saida">
+                <svg class="icon" style="width:16px;height:16px"><use href="/icons.svg#icon-arrow-down"></use></svg>
+                Saída
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="categoria">Categoria</label>
+            <input type="text" id="categoria" required list="categorias-lista" placeholder="Ex: Moradia" />
+            <datalist id="categorias-lista"></datalist>
+          </div>
+
+          <div class="form-group">
+            <label for="data">Data</label>
+            <input type="date" id="data" required />
+          </div>
+
+          <button type="submit" class="btn-primary btn-full">
+            <svg class="icon" style="width:18px;height:18px"><use href="/icons.svg#icon-plus"></use></svg>
+            Adicionar
+          </button>
+        </form>
+      </aside>
+
+      <section class="list-section animate-fade-in-up stagger-2">
+        <div class="filters">
+          <input type="month" id="filtro-mes" />
+          <select id="filtro-categoria">
+            <option value="todas">Todas as categorias</option>
+          </select>
+          <div class="search-input">
+            <svg class="icon"><use href="/icons.svg#icon-search"></use></svg>
+            <input type="text" id="filtro-busca" placeholder="Buscar transação..." />
+          </div>
+        </div>
+
+        <table class="transaction-table">
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Descrição</th>
+              <th class="td-hide-mobile">Categoria</th>
+              <th>Valor</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tabela-transacoes">
+          </tbody>
+        </table>
+
+        <div class="empty-state" id="empty-transacoes" style="display: none;">
+          <svg class="icon"><use href="/icons.svg#icon-file-text"></use></svg>
+          <h3>Sem transações</h3>
+          <p>Nenhuma transação encontrada. Use o formulário ao lado para adicionar.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>Sem Aperto &copy; 2026</p>
+  </footer>
+
+  <div class="modal-backdrop" id="modal-backdrop"></div>
+  <div class="modal" id="modal-confirmar">
+    <div class="modal-header">
+      <h2>Confirmar exclusão</h2>
+      <button class="btn-icon" id="modal-fechar" aria-label="Fechar">
+        <svg class="icon"><use href="/icons.svg#icon-close"></use></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Tem certeza que deseja excluir esta transação? Esta ação não pode ser desfeita.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" id="modal-cancelar">Cancelar</button>
+      <button class="btn-danger" id="modal-confirmar-btn">Excluir</button>
+    </div>
+  </div>
+
+  <script type="module" src="/src/pages/transacoes.js"></script>
+</body>
+
+</html>

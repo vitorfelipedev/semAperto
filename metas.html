@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Defina metas de economia, acompanhe relatórios detalhados e exporte seus dados financeiros." />
+  <title>Metas & Relatórios | Sem Aperto</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/styles/main.css" />
+  <script>
+    const theme = localStorage.getItem("theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  </script>
+</head>
+
+<body>
+  <nav class="navbar" id="navbar">
+    <a href="/" class="navbar-brand">
+      <svg class="logo-icon"><use href="/icons.svg#icon-wallet"></use></svg>
+      <span>Sem Aperto</span>
+    </a>
+
+    <ul class="nav-links" id="nav-links">
+      <li>
+        <a href="/">
+          <svg class="nav-icon"><use href="/icons.svg#icon-dashboard"></use></svg>
+          Dashboard
+        </a>
+      </li>
+      <li>
+        <a href="/transacoes.html">
+          <svg class="nav-icon"><use href="/icons.svg#icon-list"></use></svg>
+          Transações
+        </a>
+      </li>
+      <li>
+        <a href="/metas.html" class="active">
+          <svg class="nav-icon"><use href="/icons.svg#icon-target"></use></svg>
+          Metas & Relatórios
+        </a>
+      </li>
+    </ul>
+
+    <div class="navbar-actions">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Alternar tema">
+        <svg class="icon icon-sun"><use href="/icons.svg#icon-sun"></use></svg>
+        <svg class="icon icon-moon"><use href="/icons.svg#icon-moon"></use></svg>
+      </button>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu">
+        <svg class="icon icon-menu"><use href="/icons.svg#icon-menu"></use></svg>
+        <svg class="icon icon-close"><use href="/icons.svg#icon-close"></use></svg>
+      </button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="page-header animate-fade-in-up">
+      <h1>Metas & Relatórios</h1>
+      <p>Defina objetivos, acompanhe seu progresso e exporte dados.</p>
+    </header>
+
+    <section class="goals-section animate-fade-in-up stagger-1">
+      <h2>Meta de Economia Mensal</h2>
+
+      <div class="goal-form">
+        <h3>Definir Orçamento</h3>
+        <div class="goal-form-row">
+          <div class="form-group">
+            <label for="meta-valor">Limite mensal (R$)</label>
+            <input type="number" id="meta-valor" step="0.01" placeholder="3000,00" />
+          </div>
+          <div class="form-group">
+            <label for="meta-mes">Mês</label>
+            <input type="month" id="meta-mes" />
+          </div>
+          <button type="button" class="btn-primary" id="btn-salvar-meta">
+            <svg class="icon" style="width:18px;height:18px"><use href="/icons.svg#icon-check"></use></svg>
+            Salvar
+          </button>
+        </div>
+      </div>
+
+      <div class="goal-card">
+        <div class="goal-card-header">
+          <div class="goal-values">
+            <span class="goal-current text-money" id="meta-gasto">R$ 0,00</span>
+            <span class="goal-target">de <strong id="meta-limite">R$ 3.000,00</strong></span>
+          </div>
+          <span class="badge" id="meta-percentual">0%</span>
+        </div>
+
+        <div class="progress-wrapper">
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="barra-progresso" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <div class="status-alert" id="status-meta">
+          <svg class="icon"><use href="/icons.svg#icon-check"></use></svg>
+          Dentro do orçamento
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <section class="reports-section animate-fade-in-up stagger-2">
+      <h2>Relatórios</h2>
+
+      <div class="reports-grid">
+        <div class="report-card">
+          <h3>Evolução Mensal</h3>
+          <div class="chart-wrapper">
+            <canvas id="grafico-evolucao"></canvas>
+          </div>
+        </div>
+
+        <div class="report-card">
+          <h3>Gastos por Categoria</h3>
+          <div class="category-bars" id="category-bars">
+            <div class="empty-state" style="padding: var(--space-6);">
+              <svg class="icon" style="width:40px;height:40px"><use href="/icons.svg#icon-chart"></use></svg>
+              <p>Sem dados para exibir</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <section class="reports-section animate-fade-in-up stagger-3">
+      <h2>Exportar Dados</h2>
+      <p>Baixe todas as suas transações para usar em outras ferramentas.</p>
+      <button id="btn-exportar-csv" class="btn-secondary">
+        <svg class="icon" style="width:18px;height:18px"><use href="/icons.svg#icon-download"></use></svg>
+        Exportar em .CSV
+      </button>
+    </section>
+
+    <hr class="divider" />
+
+    <section class="sync-section animate-fade-in-up stagger-4">
+      <h2>Sincronização</h2>
+      <p>Conecte com o Google Sheets para backup automático dos seus dados.</p>
+      <div class="sync-status">
+        <span class="sync-dot" id="sync-dot"></span>
+        <span id="sync-label">Desconectado</span>
+      </div>
+      <div class="sync-actions">
+        <button class="btn-primary" id="btn-sync">
+          <svg class="icon" style="width:18px;height:18px"><use href="/icons.svg#icon-sync"></use></svg>
+          Conectar Google Sheets
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Sem Aperto &copy; 2026</p>
+  </footer>
+
+  <script type="module" src="/src/pages/metas.js"></script>
+</body>
+
+</html>
