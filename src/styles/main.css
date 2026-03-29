@@ -14,6 +14,7 @@
 @import "./components/filters.css";
 @import "./components/modal.css";
 @import "./components/empty-state.css";
+@import "./components/toast.css";
 
 @import "./pages/dashboard.css";
 @import "./pages/transacoes.css";
