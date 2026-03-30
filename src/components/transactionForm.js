@@ -1,5 +1,6 @@
 import { addNewTransaction } from '../api/storage.js';
 import { showToast } from '../utils/toast.js';
+import { applyFilters, updateCategories } from './filter.js';
 import { initTransactionTable } from './transactionTable.js';
 
 export function initTransactionForm() {
@@ -33,7 +34,8 @@ export function initTransactionForm() {
         form.reset();
         showToast('Transação salva com sucesso!', 'success');
         document.getElementById('descricao').focus();
-        initTransactionTable();
+        updateCategories();
+        applyFilters();
       }
     } catch {
       showToast('Erro ao salvar a transação. Tente novamente.', 'error');

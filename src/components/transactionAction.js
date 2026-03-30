@@ -1,7 +1,8 @@
 import { deleteTransaction } from '../api/storage.js';
 import { showToast } from '../utils/toast.js';
+import { applyFilters, updateCategories } from './filter.js';
 
-export function initTransactionAction(onUpdateCallback) {
+export function initTransactionAction() {
   const tabel = document.getElementById('tabela-transacoes');
   const modalBackdrop = document.getElementById('modal-backdrop');
   const modalConfirmar = document.getElementById('modal-confirmar');
@@ -35,9 +36,8 @@ export function initTransactionAction(onUpdateCallback) {
         try {
           deleteTransaction(currentTransactionId);
           showToast('Transação excluída com sucesso!', 'success');
-          if (onUpdateCallback) {
-            onUpdateCallback();
-          }
+          updateCategories();
+          applyFilters();
         } catch {
           showToast('Não foi possível excluir a transação.', 'error');
         }
