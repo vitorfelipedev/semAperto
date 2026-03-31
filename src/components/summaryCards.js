@@ -1,12 +1,16 @@
 import { getTransactions } from '../api/storage.js';
-import { formatValue } from '../utils/formatter.js';
+import { formatValue, getCurrentMonth } from '../utils/formatter.js';
 
 export function initSummaryCards() {
   const incomeElement = document.getElementById('total-receitas');
   const expenseElement = document.getElementById('total-despesas');
   const balanceElement = document.getElementById('saldo-atual');
-  const transactions = getTransactions();
-  const totals = transactions.reduce(
+  const allTransactions = getTransactions();
+  const currentMonth = getCurrentMonth();
+  const monthlyTransactions = allTransactions.filter((t) =>
+    t.date.startsWith(currentMonth),
+  );
+  const totals = monthlyTransactions.reduce(
     (acc, transaction) => {
       const value = Number(transaction.value);
       if (transaction.type === 'entrada') {
