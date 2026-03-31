@@ -1,9 +1,17 @@
 import { getTransactions } from '../api/storage.js';
-import { formatDate, formatValue } from '../utils/formatter.js';
+import {
+  formatDate,
+  formatValue,
+  getCurrentMonth,
+} from '../utils/formatter.js';
 
 export function initRecentTransaction() {
-  const transactions = getTransactions();
-  const recentTrasactions = [...transactions]
+  const allTransactions = getTransactions();
+  const currentMonth = getCurrentMonth();
+  const monthlyTransactions = allTransactions.filter((t) =>
+    t.date.startsWith(currentMonth),
+  );
+  const recentTrasactions = [...monthlyTransactions]
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 5);
   const listRecentElement = document.getElementById('lista-recentes');
