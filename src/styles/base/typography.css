@@ -41,19 +41,19 @@ h3 {
 }
 
 .text-income {
-  color: var(--color-income);
+  color: var(--color-income) !important;
 }
 
 .text-expense {
-  color: var(--color-expense);
+  color: var(--color-expense) !important;
 }
 
 .text-danger {
-  color: var(--color-danger);
+  color: var(--color-danger) !important;
 }
 
 .text-warning {
-  color: var(--color-warning);
+  color: var(--color-warning) !important;
 }
 
 strong {
