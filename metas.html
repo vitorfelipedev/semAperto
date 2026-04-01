@@ -199,6 +199,55 @@
     </div>
   </div>
 
+  <div class="modal" id="modal-alvo-menor">
+    <div class="modal-header">
+      <h2>Aviso de Conclusão</h2>
+      <button class="btn-icon" id="modal-alvo-fechar" aria-label="Fechar">
+        <svg class="icon"><use href="/icons.svg#icon-close"></use></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p id="modal-alvo-mensagem">O valor alocado é menor que o alvo. Abrir formulário de conclusão mesmo assim?</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" id="modal-alvo-cancelar">Cancelar</button>
+      <button type="button" class="btn-primary" id="modal-alvo-confirmar">Sim, continuar</button>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-transacao-meta">
+    <div class="modal-header">
+      <h2>Registrar Conclusão de Meta</h2>
+      <button class="btn-icon" id="modal-transacao-fechar" aria-label="Fechar">
+        <svg class="icon"><use href="/icons.svg#icon-close"></use></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form id="form-transacao-meta">
+        <div class="form-group">
+          <label for="tm-descricao">Descrição</label>
+          <input type="text" id="tm-descricao" required />
+        </div>
+        <div class="form-group">
+          <label for="tm-valor">Valor Final Gasto (R$)</label>
+          <input type="number" id="tm-valor" step="0.01" required />
+        </div>
+        <div class="form-group">
+          <label for="tm-categoria">Categoria</label>
+          <input type="text" id="tm-categoria" required value="Metas" />
+        </div>
+        <div class="form-group">
+          <label for="tm-data">Data da Transação</label>
+          <input type="date" id="tm-data" required />
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" id="modal-transacao-cancelar">Cancelar</button>
+      <button type="button" class="btn-primary" id="modal-transacao-confirmar">Concluir e Salvar</button>
+    </div>
+  </div>
+
   <script type="module" src="/src/pages/metas.js"></script>
 </body>
 
