@@ -6,6 +6,27 @@ import { getCurrentMonth } from '../utils/formatter';
 let chartInstance = null;
 let customThemeObserver = null;
 
+function groupTopCategories(obj, maxCategories = 3) {
+  const entries = Object.entries(obj);
+  entries.sort((a, b) => b[1] - a[1]);
+  const result = [];
+  let othersTotal = 0;
+  entries.forEach(([label, value], index) => {
+    if (index < maxCategories) {
+      result.push([label, value]);
+    } else {
+      othersTotal += value;
+    }
+  });
+  if (othersTotal > 0) {
+    result.push(['Outros', othersTotal]);
+  }
+  return {
+    labels: result.map(([label]) => label),
+    data: result.map(([, value]) => value),
+  };
+}
+
 export function initCategoryChart() {
   const canvasElement = document.getElementById('grafico-categorias');
   if (!canvasElement) return;
@@ -21,8 +42,7 @@ export function initCategoryChart() {
       acc[category] = (acc[category] || 0) + value;
       return acc;
     }, {});
-  const labels = Object.keys(expensesByCategory);
-  const data = Object.values(expensesByCategory);
+  const { labels, data } = groupTopCategories(expensesByCategory, 5);
   if (chartInstance) {
     chartInstance.destroy();
   }
@@ -84,7 +104,6 @@ export function initCategoryChart() {
               }
             });
 
-            // Evita divisão por zero caso todas as categorias sejam ocultadas
             if (total === 0) return null;
 
             const percentage = ((value * 100) / total).toFixed(1);

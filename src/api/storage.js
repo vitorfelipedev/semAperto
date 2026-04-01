@@ -1,4 +1,5 @@
 const KEY_STORAGE = '@SemAperto:transacoes';
+const KEY_GOALS = '@SemAperto:goals';
 import { uuidv7 } from 'uuidv7';
 
 export function getTransactions() {
@@ -42,4 +43,48 @@ export function deleteTransaction(id) {
     (transaction) => transaction.id !== id,
   );
   saveTransactions(newTransactions);
+}
+
+export function getGoals() {
+  const goals = localStorage.getItem(KEY_GOALS);
+  if (goals === null) return [];
+  try {
+    return JSON.parse(goals);
+  } catch {
+    return [];
+  }
+}
+
+export function saveGoals(goals) {
+  localStorage.setItem(KEY_GOALS, JSON.stringify(goals));
+}
+
+export function addNewGoal({ title, targetValue, currentValue, deadline }) {
+  const goals = getGoals();
+  const newGoal = {
+    id: uuidv7(),
+    title: title.trim(),
+    targetValue: Number(targetValue),
+    currentValue: Number(currentValue),
+    deadline,
+    status: 'active',
+  };
+  goals.push(newGoal);
+  saveGoals(goals);
+  return newGoal;
+}
+
+export function deleteGoal(id) {
+  const goals = getGoals();
+  const newGoals = goals.filter((goal) => goal.id !== id);
+  saveGoals(newGoals);
+}
+
+export function updateGoal(id, updatedFields) {
+  const goals = getGoals();
+  const index = goals.findIndex((g) => g.id === id);
+  if (index !== -1) {
+    goals[index] = { ...goals[index], ...updatedFields };
+    saveGoals(goals);
+  }
 }
