@@ -23,11 +23,22 @@ function getMonthName(dateString) {
 }
 
 export function initGoalsModal() {
-  const modal = document.getElementById('modal-confirmar');
   const backdrop = document.getElementById('modal-backdrop');
+
+  const modal = document.getElementById('modal-confirmar');
   const btnCancel = document.getElementById('modal-cancelar');
   const btnClose = document.getElementById('modal-fechar');
   const btnConfirm = document.getElementById('modal-confirmar-btn');
+
+  const modalTrans = document.getElementById('modal-transacao-meta');
+  const btnTransCancel = document.getElementById('modal-transacao-cancelar');
+  const btnTransClose = document.getElementById('modal-transacao-fechar');
+  const btnTransConfirm = document.getElementById('modal-transacao-confirmar');
+
+  const modalAlvo = document.getElementById('modal-alvo-menor');
+  const btnAlvoCancel = document.getElementById('modal-alvo-cancelar');
+  const btnAlvoClose = document.getElementById('modal-alvo-fechar');
+  const btnAlvoConfirm = document.getElementById('modal-alvo-confirmar');
 
   const closeModal = () => {
     if (modal) modal.classList.remove('active');
@@ -35,9 +46,34 @@ export function initGoalsModal() {
     window.goalToDelete = null;
   };
 
+  const closeTransModal = () => {
+    if (modalTrans) modalTrans.classList.remove('active');
+    if (backdrop) backdrop.classList.remove('active');
+    window.goalToComplete = null;
+  };
+
+  const closeAlvoModal = () => {
+    if (modalAlvo) modalAlvo.classList.remove('active');
+    if (backdrop) backdrop.classList.remove('active');
+    window.pendingCompleteId = null;
+  };
+
   if (btnCancel) btnCancel.addEventListener('click', closeModal);
   if (btnClose) btnClose.addEventListener('click', closeModal);
-  if (backdrop) backdrop.addEventListener('click', closeModal);
+  
+  if (btnTransCancel) btnTransCancel.addEventListener('click', closeTransModal);
+  if (btnTransClose) btnTransClose.addEventListener('click', closeTransModal);
+
+  if (btnAlvoCancel) btnAlvoCancel.addEventListener('click', closeAlvoModal);
+  if (btnAlvoClose) btnAlvoClose.addEventListener('click', closeAlvoModal);
+
+  if (backdrop) {
+    backdrop.addEventListener('click', () => {
+      closeModal();
+      closeTransModal();
+      closeAlvoModal();
+    });
+  }
 
   if (btnConfirm) {
     btnConfirm.addEventListener('click', () => {
@@ -46,6 +82,47 @@ export function initGoalsModal() {
         updateGoalUI();
         closeModal();
         showToast('Meta excluída com sucesso.', 'success');
+      }
+    });
+  }
+
+  if (btnAlvoConfirm) {
+    btnAlvoConfirm.addEventListener('click', () => {
+      if (window.pendingCompleteId) {
+        const idToComplete = window.pendingCompleteId;
+        closeAlvoModal();
+        window.openTransModal(idToComplete);
+      }
+    });
+  }
+
+  if (btnTransConfirm) {
+    btnTransConfirm.addEventListener('click', () => {
+      const form = document.getElementById('form-transacao-meta');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      
+      if (window.goalToComplete) {
+        const desc = document.getElementById('tm-descricao').value;
+        const val = Number(document.getElementById('tm-valor').value);
+        const cat = document.getElementById('tm-categoria').value;
+        const date = document.getElementById('tm-data').value;
+        
+        addNewTransaction({
+          description: desc,
+          value: val,
+          type: 'saida',
+          category: cat,
+          date: date
+        });
+
+        updateGoal(window.goalToComplete, { status: 'completed', currentValue: val });
+        
+        updateGoalUI();
+        closeTransModal();
+        showToast('Parabéns! Meta concluída e registrada.', 'success');
       }
     });
   }
@@ -204,6 +281,39 @@ window.handleAllocateGoal = (id) => {
   showToast('Valor alocado com sucesso!', 'success');
 };
 
+window.openTransModal = (id) => {
+  const goals = getGoals();
+  const goal = goals.find((g) => g.id === id);
+  if (!goal) return;
+
+  const modalTrans = document.getElementById('modal-transacao-meta');
+  const backdrop = document.getElementById('modal-backdrop');
+  
+  if (modalTrans && backdrop) {
+    window.goalToComplete = id;
+    
+    document.getElementById('tm-descricao').value = 'Meta Atingida: ' + goal.title;
+    document.getElementById('tm-valor').value = goal.currentValue.toFixed(2);
+    document.getElementById('tm-categoria').value = 'Metas';
+    document.getElementById('tm-data').value = new Date().toISOString().split('T')[0];
+
+    modalTrans.classList.add('active');
+    backdrop.classList.add('active');
+  } else {
+    // Fallback se n carregou o ID
+    addNewTransaction({
+      description: 'Meta Atingida: ' + goal.title,
+      value: goal.currentValue,
+      type: 'saida',
+      category: 'Metas',
+      date: new Date().toISOString().split('T')[0],
+    });
+    updateGoal(id, { status: 'completed' });
+    updateGoalUI();
+    showToast('Parabéns! Meta concluída e debitada do saldo.', 'success');
+  }
+};
+
 window.handleCompleteGoal = (id) => {
   const goals = getGoals();
   const goal = goals.find((g) => g.id === id);
@@ -211,21 +321,23 @@ window.handleCompleteGoal = (id) => {
 
   if (goal.currentValue < goal.targetValue) {
     const difference = goal.targetValue - goal.currentValue;
-    const msg = `O valor alocado é menor que o alvo. Faltam ${formatter.format(difference)}. Concluir mesmo assim?`;
-    if (!confirm(msg)) return;
+    const msg = `O valor alocado é menor que o alvo. Faltam ${formatter.format(difference)}. Abrir formulário de conclusão mesmo assim?`;
+    
+    const modalAlvo = document.getElementById('modal-alvo-menor');
+    const backdrop = document.getElementById('modal-backdrop');
+    const msgEl = document.getElementById('modal-alvo-mensagem');
+    
+    if (modalAlvo && backdrop) {
+      if (msgEl) msgEl.textContent = msg;
+      window.pendingCompleteId = id;
+      modalAlvo.classList.add('active');
+      backdrop.classList.add('active');
+      return; // Trava aqui até ele confirmar
+    }
   }
 
-  addNewTransaction({
-    description: 'Meta Atingida: ' + goal.title,
-    value: goal.currentValue,
-    type: 'saida',
-    category: 'Metas',
-    date: new Date().toISOString().split('T')[0],
-  });
-
-  updateGoal(id, { status: 'completed' });
-  updateGoalUI();
-  showToast('Parabéns! Meta concluída e debitada do saldo.', 'success');
+  // Se atingiu o alvo, já abre direto o form transação
+  window.openTransModal(id);
 };
 
 window.handleDeleteGoal = (id) => {
@@ -236,7 +348,6 @@ window.handleDeleteGoal = (id) => {
     modal.classList.add('active');
     backdrop.classList.add('active');
   } else {
-    // Fallback just in case
     if (confirm('Tem certeza que deseja excluir esta meta?')) {
       deleteGoal(id);
       updateGoalUI();
