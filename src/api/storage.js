@@ -67,6 +67,7 @@ export function addNewGoal({ title, targetValue, currentValue, deadline }) {
     targetValue: Number(targetValue),
     currentValue: Number(currentValue),
     deadline,
+    status: 'active',
   };
   goals.push(newGoal);
   saveGoals(goals);
@@ -77,4 +78,13 @@ export function deleteGoal(id) {
   const goals = getGoals();
   const newGoals = goals.filter((goal) => goal.id !== id);
   saveGoals(newGoals);
+}
+
+export function updateGoal(id, updatedFields) {
+  const goals = getGoals();
+  const index = goals.findIndex((g) => g.id === id);
+  if (index !== -1) {
+    goals[index] = { ...goals[index], ...updatedFields };
+    saveGoals(goals);
+  }
 }

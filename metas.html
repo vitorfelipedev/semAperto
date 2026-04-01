@@ -80,17 +80,26 @@
     </header>
 
     <section class="goals-section animate-fade-in-up stagger-1">
-      <h2>Meta de Economia Mensal</h2>
+      <h2>Minhas Metas</h2>
+
+      <div class="available-balance-section">
+        <span>Saldo Livre para Alocação</span>
+        <span class="available-balance-amount text-money" id="saldo-disponivel">R$ 0,00</span>
+      </div>
 
       <div class="goal-form">
-        <h3>Definir Orçamento</h3>
+        <h3>Nova Meta</h3>
         <div class="goal-form-row">
           <div class="form-group">
-            <label for="meta-valor">Limite mensal (R$)</label>
-            <input type="number" id="meta-valor" step="0.01" placeholder="3000,00" />
+            <label for="meta-nome">Nome da Meta</label>
+            <input type="text" id="meta-nome" placeholder="Ex: Comprar um carro" />
           </div>
           <div class="form-group">
-            <label for="meta-mes">Mês</label>
+            <label for="meta-valor">Valor Alvo (R$)</label>
+            <input type="number" id="meta-valor" step="0.01" placeholder="50000,00" />
+          </div>
+          <div class="form-group">
+            <label for="meta-mes">Prazo (Mês/Ano)</label>
             <input type="month" id="meta-mes" />
           </div>
           <button type="button" class="btn-primary" id="btn-salvar-meta">
@@ -102,27 +111,8 @@
         </div>
       </div>
 
-      <div class="goal-card">
-        <div class="goal-card-header">
-          <div class="goal-values">
-            <span class="goal-current text-money" id="meta-gasto">R$ 0,00</span>
-            <span class="goal-target">de <strong id="meta-limite">R$ 3.000,00</strong></span>
-          </div>
-          <span class="badge" id="meta-percentual">0%</span>
-        </div>
-
-        <div class="progress-wrapper">
-          <div class="progress-bar-container">
-            <div class="progress-bar" id="barra-progresso" style="width: 0%;"></div>
-          </div>
-        </div>
-
-        <div class="status-alert" id="status-meta">
-          <svg class="icon">
-            <use href="/icons.svg#icon-check"></use>
-          </svg>
-          Dentro do orçamento
-        </div>
+      <div id="goals-list" class="goals-grid">
+        <!-- Cards de meta inseridos dinamicamente aqui -->
       </div>
     </section>
 
@@ -189,6 +179,25 @@
   <footer class="footer">
     <p>Sem Aperto &copy; 2026</p>
   </footer>
+
+  <div class="modal-backdrop" id="modal-backdrop"></div>
+  <div class="modal" id="modal-confirmar">
+    <div class="modal-header">
+      <h2>Confirmar exclusão</h2>
+      <button class="btn-icon" id="modal-fechar" aria-label="Fechar">
+        <svg class="icon">
+          <use href="/icons.svg#icon-close"></use>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Tem certeza que deseja excluir esta meta? Esta ação não pode ser desfeita.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" id="modal-cancelar">Cancelar</button>
+      <button class="btn-danger" id="modal-confirmar-btn">Excluir</button>
+    </div>
+  </div>
 
   <script type="module" src="/src/pages/metas.js"></script>
 </body>
