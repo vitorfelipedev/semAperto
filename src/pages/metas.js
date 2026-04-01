@@ -1,3 +1,4 @@
+import { initCategoryBars } from '../components/categoryChartBar.js';
 import { initEvolutionChart } from '../components/evolutionChart.js';
 import { initGoalForm } from '../components/goalForm.js';
 import { updateGoalUI, initGoalsModal } from '../components/goalUI.js';
@@ -8,3 +9,4 @@ initGoalForm();
 updateGoalUI();
 initNavbar();
 initEvolutionChart();
+initCategoryBars();
