@@ -1,4 +1,5 @@
 export function showToast(message, type = 'success') {
+  if (document.querySelectorAll('.toast-icon').length > 0) return;
   let container = document.querySelector('.toast-container');
   if (!container) {
     container = document.createElement('div');
