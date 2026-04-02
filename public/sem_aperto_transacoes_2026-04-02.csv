@@ -1,0 +1,21 @@
+﻿ID;description;value;type;category;date
+019d3cc7-f015-7608-9433-7ac52769d5f2;"Conta Internet";80;saida;Contas Gerais;2026-04-12
+019d3cc8-723b-7474-8f34-62c9f52283ac;"Salario";1400;entrada;CLT;2026-04-08
+019d41d7-1d9d-7941-8d6f-075a014e8e11;"Conta de LUZ";150;saida;Contas Gerais;2026-04-10
+019d41d7-6d19-7187-a7c4-88b69f94c885;"Conta de água";150;saida;Contas Gerais;2026-04-12
+019d41d8-1e28-7d1e-94eb-0f221bdc54ed;"Compras Mensal Mercado";500;saida;Alimentação;2026-04-08
+019d41d8-b87b-764e-9d60-60e40de4227f;"Cartão de Crédito";400;saida;Compras Gerais;2026-04-12
+019d41d9-a95c-7e8d-8683-02bf07464508;"Cinema / Shopping";130;saida;Lazer;2026-04-21
+019d41ea-30fd-7908-8552-55dcdd548b03;"Freelancer";400;entrada;Outros Recebimentos;2026-04-20
+019d41f8-49aa-720c-a866-d43774c2e74d;"Salário";1400;entrada;CLT;2026-03-05
+019d41f9-00b9-71d4-8c4a-124b06c4aab4;"Conta de Luz";200;saida;Contas Gerais;2026-03-12
+019d41ff-fc8a-72b3-a56a-17b2f103617a;"Cinema / Shopping";200;saida;Lazer;2026-03-12
+019d4671-e254-7041-9cd1-dd567cceeab2;"IPVA";400;saida;Gastos Gerais;2026-03-02
+019d4900-973e-79a6-8efa-d327361557c3;"Dízimo";140;saida;Igreja;2026-04-08
+019d4901-1e0c-7137-a1e6-74bb29ce88ab;"Cabelo";40;saida;Cuidado Pessoal;2026-04-04
+019d4901-e4c4-78ea-8ce3-f04af000d6b5;"Uber";50;saida;Transporte;2026-04-10
+019d4902-d1b6-78be-931f-cf833768af8a;"Presente mãe";150;saida;Família;2026-04-01
+019d4903-a699-7653-a7f3-b7eaf59f3e5e;"Cartão de Crédito 2";150;saida;Compras Namorada;2026-04-15
+019d4939-91ee-740c-bcca-161d90580a0c;"Meta Atingida: Comprar Moto";200;saida;Metas;2026-04-01
+019d493b-8cf4-7595-918c-ff5e967c2935;"Meta Atingida: TESTE";100;saida;Metas;2026-04-01
+019d4962-c819-7ab2-8042-6b9cec9e8def;"Meta Atingida: Comprar bala";20;saida;Metas;2026-04-01
