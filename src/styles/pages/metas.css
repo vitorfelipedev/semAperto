@@ -193,6 +193,16 @@
   box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
 }
 
+.sync-dot.warning {
+  background: var(--color-warning);
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+}
+
+.sync-dot.error {
+  background: var(--color-danger);
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+}
+
 .sync-actions {
   display: flex;
   gap: var(--space-3);
